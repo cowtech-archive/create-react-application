@@ -6,7 +6,6 @@ const cheerio = require("cheerio");
 const moment = require("moment");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackExcludeAssetsPlugin = require("html-webpack-exclude-assets-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const StyleExtHtmlWebpackPlugin = require("style-ext-html-webpack-plugin");
 const GraphBundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const BabiliPlugin = require("babili-webpack-plugin");
@@ -22,18 +21,16 @@ const postcssPlugins = [
   require("postcss-discard-comments")({removeAll: true})
 ];
 
-const cssPipeline = ExtractTextPlugin.extract({
-  fallback: "style-loader",
-  use: [
-    "css-loader",
-    {loader: "postcss-loader", options: {plugins: () => postcssPlugins}},
-    {loader: "sass-loader", options: {
-      outputStyle: "compressed",
-      functions: {svg: param => new sass.types.String(`url('data:image/svg+xml;utf8,${fs.readFileSync(param.getValue())}')`)},
-      includePaths: ["lazier.sass", "ribbon.css", "normalize.css", "fixed-data-table", "react-select", "react-dates"].map(l => `node_modules/${l}`)}
-    }
-  ]
-});
+const cssPipeline = [
+  "style-loader",
+  "css-loader",
+  {loader: "postcss-loader", options: {plugins: () => postcssPlugins}},
+  {loader: "sass-loader", options: {
+    outputStyle: "compressed",
+    functions: {svg: param => new sass.types.String(`url('data:image/svg+xml;utf8,${fs.readFileSync(param.getValue())}')`)},
+    includePaths: ["lazier.sass", "ribbon.css", "normalize.css"].map(l => `node_modules/${l}`)}
+  }
+];
 
 const loadIcons = function(...whitelist){
   const library = cheerio.load(fs.readFileSync(path.resolve(process.cwd(), "src/css/font-awesome.svg"), "utf-8"));
@@ -80,14 +77,13 @@ module.exports = function(env){
       "process.env": {NODE_ENV: JSON.stringify(env)} // This is needed by React for production mode
     }),
     new HtmlWebpackPlugin({template: "src/index.html.jsx", minify: {collapseWhitespace: true}, excludeAssets: [/\.js$/]}),
-    new HtmlWebpackExcludeAssetsPlugin(),
-    new ExtractTextPlugin({filename: "css/style.css"})
+    new HtmlWebpackExcludeAssetsPlugin()
   ];
 
   if(env === "production")
     plugins.push(...[new BabiliPlugin({mangle: false}), new StyleExtHtmlWebpackPlugin()]); // PI: Remove mangle when Safari 10 is dropped: https://github.com/mishoo/UglifyJS2/issues/1753
   else
-    plugins.push(new GraphBundleAnalyzerPlugin({openAnalyzer: false}));
+    plugins.push(...[new webpack.HotModuleReplacementPlugin(), new GraphBundleAnalyzerPlugin({openAnalyzer: false})]);
 
   return {
     entry: {
@@ -119,6 +115,7 @@ module.exports = function(env){
       contentBase: path.join(__dirname, "dist"),
       historyApiFallback: true,
       compress: true,
+      hot: true,
       host: "home.cowtech.it",
       port: 4200
     }
