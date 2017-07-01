@@ -1,6 +1,6 @@
 {
   "name": "@cowtech/create-react-application",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "CowTech Template: React application",
   "main": "index.js",
   "files": [
