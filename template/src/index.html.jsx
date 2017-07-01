@@ -21,6 +21,7 @@ const index = ReactDOMServer.renderToStaticMarkup(
       <link rel="shortcut icon" href="images/favicon.png" sizes="196x196"/>
       <link rel="manifest" href="/manifest.json"/>
 
+      {env.environment === "production" && <style>{require("./css/main.scss").toString()}</style>}
       <script defer={true} type="text/javascript" src="/js/app.js"></script>
     </head>
     <body>
