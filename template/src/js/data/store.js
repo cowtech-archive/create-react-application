@@ -12,11 +12,11 @@ if(!onServer){
 }
 
 // A default no-op state connector
-export const stateConnector = function(state){
+export const defaultConnector = function(state){
   return state;
 };
 
-export const connectComponent = function(component, connector){
+export const connectComponent = function(component, connector = defaultConnector){
   return reduxConnect(connector)(component);
 };
 
