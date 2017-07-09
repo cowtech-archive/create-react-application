@@ -21,9 +21,10 @@
     "redux-thunk": "~2.2"
   },
   "devDependencies": {
-    "@cowtech/webpack-config": "~0.2",
-    "eslint": "~4.1",
-    "webpack": "~3.0",
+    "@cowtech/eslint": "~4.2",
+    "@cowtech/webpack-config": "~0.3",
+    "eslint": "~4.2",
+    "webpack": "~3.1",
     "webpack-dev-server": "~2.5"
   },
   "engines": {
