@@ -1,3 +1,8 @@
+### 2017-07-24 / 0.4.2
+
+* Added audit command.
+* Switched to @cowtech/package-utils.
+
 ### 2017-07-09 / 0.4.0
 
 * Use CommonsChunkPlugin in development to improve bundle-analyzer experience.
