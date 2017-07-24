@@ -1,3 +1,7 @@
+### 2017-07-24 / 0.4.3
+
+* Fixed audit command.
+
 ### 2017-07-24 / 0.4.2
 
 * Added audit command.
