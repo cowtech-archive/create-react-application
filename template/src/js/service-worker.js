@@ -10,7 +10,7 @@ const activate = async function(){
 };
 
 const fetchWithCache = async function(request){
-  if(!request.url.includes("cowtech.it")) // Don't try to cache external resources
+  if(!request.url.includes('cowtech.it')) // Don't try to cache external resources
     return fetch(request);
 
   // Search in the cache
@@ -35,10 +35,10 @@ const fetchWithCache = async function(request){
   return cachedResponse;
 };
 
-self.addEventListener("activate", event => {
+self.addEventListener('activate', event => {
   event.waitUntil(activate());
 });
 
-self.addEventListener("fetch", event => {
+self.addEventListener('fetch', event => {
   event.respondWith(fetchWithCache(event.request));
 });

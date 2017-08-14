@@ -1,8 +1,8 @@
-const onServer = typeof window === "undefined";
+const onServer = typeof window === 'undefined';
 
-import {createStore, applyMiddleware, compose} from "redux";
-import {connect as reduxConnect} from "react-redux";
-import thunk from "redux-thunk";
+import {createStore, applyMiddleware, compose} from 'redux';
+import {connect as reduxConnect} from 'react-redux';
+import thunk from 'redux-thunk';
 
 let composeEnhancers = compose;
 
@@ -21,7 +21,7 @@ export const connectComponent = function(component, connector = defaultConnector
 };
 
 export const reducer = function(state, {type, payload}){
-  let newState = state;
+  const newState = state;
 
   switch(type){
 
