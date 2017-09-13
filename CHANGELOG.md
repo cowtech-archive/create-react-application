@@ -1,5 +1,9 @@
 ### 2017-09-13 / 0.7.0
 
+* Improvements.
+
+### 2017-09-13 / 0.7.0
+
 * Updated to @cowtech/webpack-config 0.7.0.
 * Do not bundle font-awesome SVG by default.
 * Reorganized file layout.
