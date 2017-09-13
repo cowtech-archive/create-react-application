@@ -1,8 +1,11 @@
 const onServer = typeof window === 'undefined';
 
-import {createStore, applyMiddleware, compose} from 'redux';
-import {connect as reduxConnect} from 'react-redux';
+import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
+import createHistory from 'history/createBrowserHistory';
+import {routerReducer, routerMiddleware} from 'react-router-redux';
 import thunk from 'redux-thunk';
+
+import {reducer} from './reducers';
 
 let composeEnhancers = compose;
 
@@ -11,28 +14,12 @@ if(!onServer){
   window.showEnvironment = () => console.log(env);
 }
 
-// A default no-op state connector
-export const defaultConnector = function(state){
-  return state;
-};
-
-export const connectComponent = function(component, connector = defaultConnector){
-  return reduxConnect(connector)(component);
-};
-
-export const reducer = function(state, {type, payload}){
-  const newState = state;
-
-  switch(type){
-
-  }
-
-  return newState;
-};
-
-export const initialState = {
-
-};
-
 // The main store
-export const store = createStore(reducer, initialState, composeEnhancers(applyMiddleware(thunk)));
+export const history = !onServer ? createHistory() : null;
+export const store = createStore(
+  combineReducers({application: reducer, router: routerReducer}),
+  composeEnhancers(applyMiddleware(routerMiddleware(history), thunk))
+);
+
+if(!onServer)
+  store.dispatch({type: 'INITIALIZE'});
