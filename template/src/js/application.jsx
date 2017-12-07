@@ -27,6 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
   if(navigator.serviceWorker){
     if(env.serviceWorkerEnabled && env.environment === 'production')
       navigator.serviceWorker.register('/sw.js').catch(console.error);
+    else{
+      navigator.serviceWorker.getRegistrations()
+        .then(rs => rs.map(r => r.unregister()))
+        .catch(console.error);
+    }
+  }
+
+  if(navigator.serviceWorker){
+    if(env.serviceWorkerEnabled && env.environment === 'production')
+      navigator.serviceWorker.register('/sw.js').catch(console.error);
     else
       navigator.serviceWorker.getRegistrations().then(registrations => registrations.map(r => r.unregister()));
   }

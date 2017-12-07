@@ -1,7 +1,7 @@
 // Load Workbox
-require('../../node_modules/workbox-sw/build/importScripts/workbox-sw.prod.v2.0.1.js');
+require('../../node_modules/workbox-sw/build/importScripts/workbox-sw.prod.v2.1.2.js');
 importScripts('/js/workbox.js');
-const workbox = new WorkboxSW({clientsClaim: true});
+const workbox = new WorkboxSW({clientsClaim: true, skipWaiting: true, directoryIndex: '/index.html'});
 
 // Cache Google Fonts
 workbox.router.registerRoute(
@@ -12,4 +12,5 @@ workbox.router.registerRoute(
 // Application
 workbox.precache([]);
 workbox.router.registerRoute(/\/images\/(.*\/)?.*\.(png|jpg|jpeg|gif)/, workbox.strategies.cacheFirst());
+workbox.router.registerRoute(/\/manifest.json/, workbox.strategies.networkOnly());
 workbox.router.registerNavigationRoute('/index.html');

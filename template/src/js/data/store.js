@@ -1,10 +1,16 @@
 const onServer = typeof window === 'undefined';
 
-import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
+import * as React from 'react';
+import {createStore, applyMiddleware, compose, combineReducers, Store} from 'redux';
+import {History} from 'history';
 import createHistory from 'history/createBrowserHistory';
-import {routerReducer, routerMiddleware} from 'react-router-redux';
+import {RouteComponentProps} from 'react-router';
+import {routerReducer, routerMiddleware, RouterAction} from 'react-router-redux';
 import thunk from 'redux-thunk';
+import * as firebase from 'firebase';
 
+import {Environment} from '../models/environment';
+import {GlobalState} from '../data/state';
 import {reducer} from './reducers';
 
 let composeEnhancers = compose;
@@ -14,6 +20,12 @@ if(!onServer){
   window.showEnvironment = () => console.log(env);
 }
 
+export function createRouteMapStateToPropsfunction(mapper){
+  return function(state, ownProps){
+    return mapper(state, ownProps);
+  };
+}
+
 // The main store
 export const history = !onServer ? createHistory() : null;
 export const store = createStore(
@@ -21,5 +33,6 @@ export const store = createStore(
   composeEnhancers(applyMiddleware(routerMiddleware(history), thunk))
 );
 
+// Initialize Firebase
 if(!onServer)
-  store.dispatch({type: 'INITIALIZE'});
+  firebase.initializeApp(env.firebase);
