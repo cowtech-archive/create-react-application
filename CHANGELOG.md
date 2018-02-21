@@ -1,3 +1,7 @@
+### 2018-02-21 / 0.8.3
+
+* Updated service worker.
+
 ### 2018-02-21 / 0.8.2
 
 * Updated service worker.
