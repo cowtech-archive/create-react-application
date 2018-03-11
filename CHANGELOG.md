@@ -1,3 +1,7 @@
+### 2018-03-11 / 0.8.4
+
+* Updated dependencies.
+
 ### 2018-02-21 / 0.8.3
 
 * Updated service worker.

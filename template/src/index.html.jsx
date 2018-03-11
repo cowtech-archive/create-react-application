@@ -4,10 +4,6 @@ require('./robots.txt');
 
 import * as React from "react";
 import ReactDOMServer from "react-dom/server";
-import {Provider} from "react-redux";
-import {StaticRouter as Router} from "react-router";
-
-import {store} from "./js/data/store";
 
 const structuredData = {
 
@@ -53,15 +49,11 @@ const index = ReactDOMServer.renderToStaticMarkup(
       <meta name="twitter:image" content=""/>
     </head>
     <body>
-      <Provider store={store}>
-        <Router location={'/'} context={{}}>
-          <div id="root" className="root">
-            <div id="main" className="main">
+      <div id="root" className="root">
+        <div id="main" className="main">
 
-            </div>
-          </div>
-        </Router>
-      </Provider>
+        </div>
+      </div>
     </body>
   </html>
 );
