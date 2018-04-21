@@ -1,3 +1,7 @@
+### 2018-04-21 / 0.9.0
+
+* Fixed SW caching.
+
 ### 2018-03-11 / 0.8.4
 
 * Updated dependencies.

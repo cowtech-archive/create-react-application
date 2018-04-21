@@ -1,5 +1,6 @@
 workbox.skipWaiting();
 workbox.clientsClaim();
+workbox.core.setCacheNameDetails({prefix: '{{namespace}}', suffix: 'v1', precache: '', runtime: ''});
 
 // Cache Google Fonts
 workbox.routing.registerRoute(
