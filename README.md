@@ -1,5 +1,7 @@
 # @cowtech/create-react-application
 
+## END OF DEVELOPMENT NOTICE - This package has been discontinued
+
 Boilerplate for a React application.
 
 ## Copyright
